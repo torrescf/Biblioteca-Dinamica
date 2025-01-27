@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm> // Adicionado para std::sort
 using namespace std;
 
 struct Catalogo{
@@ -96,59 +97,50 @@ int buscaBinariaNome(Catalogo vet[], int tamanho, string nome) {
 void buscaBinariaAno(Catalogo vet[], int tamanho, int anoBusca) {
     int menor = 0;
     int maior = tamanho - 1;
-    int cont = 0;
+    bool encontrado = false;
 
     while (menor <= maior) {
         int media = menor + (maior - menor) / 2;
 
-        // Verifica se o ano de lançamento no meio é igual ao ano buscado
         if (vet[media].lancamento == anoBusca) {
-            // Encontra todos os livros com o mesmo ano de lançamento
+            encontrado = true;
             int esquerda = media;
             int direita = media;
 
-            // Expande para a esquerda
             while (esquerda >= 0 && vet[esquerda].lancamento == anoBusca) {
-                cont++;
                 cout << endl;
-				cout << "livro: " << vet[esquerda].nome << "; ";
-				cout << "Autor: " << vet[esquerda].nomeAutor << "; ";
-				cout << "Paginas: " << vet[esquerda].numPaginas << "; ";
-				cout << "Lancamento: " << vet[esquerda].lancamento << "; ";
-				cout << "Genero: " << vet[esquerda].genero << "; ";
-				cout << "Editora " << vet[esquerda].editora << "; ";
+                cout << "livro: " << vet[esquerda].nome << "; ";
+                cout << "Autor: " << vet[esquerda].nomeAutor << "; ";
+                cout << "Paginas: " << vet[esquerda].numPaginas << "; ";
+                cout << "Lancamento: " << vet[esquerda].lancamento << "; ";
+                cout << "Genero: " << vet[esquerda].genero << "; ";
+                cout << "Editora: " << vet[esquerda].editora << "; ";
                 esquerda--;
             }
 
-            // Expande para a direita
             while (direita < tamanho && vet[direita].lancamento == anoBusca) {
-                if (direita != media) {  // Evita duplicar a impressão do elemento central
-                    cont++;
+                if (direita != media) {
                     cout << endl;
-				cout << "livro: " << vet[direita].nome << "; ";
-				cout << "Autor: " << vet[direita].nomeAutor << "; ";
-				cout << "Paginas: " << vet[direita].numPaginas << "; ";
-				cout << "Lancamento: " << vet[direita].lancamento << "; ";
-				cout << "Genero: " << vet[direita].genero << "; ";
-				cout << "Editora" << vet[direita].editora << "; ";
+                    cout << "livro: " << vet[direita].nome << "; ";
+                    cout << "Autor: " << vet[direita].nomeAutor << "; ";
+                    cout << "Paginas: " << vet[direita].numPaginas << "; ";
+                    cout << "Lancamento: " << vet[direita].lancamento << "; ";
+                    cout << "Genero: " << vet[direita].genero << "; ";
+                    cout << "Editora: " << vet[direita].editora << "; ";
                 }
                 direita++;
             }
-            return;  // Sai da função após encontrar e exibir todos os livros com o ano buscado
+            return;
         }
 
-        // Se o ano no meio for maior, ignora a metade direita (já que é decrescente)
-        if (vet[media].numPaginas > anoBusca) {
-            menor = media + 1;
-        }
-        // Se o ano no meio for menor, ignora a metade esquerda
-        else {
+        if (vet[media].lancamento > anoBusca) {
             maior = media - 1;
+        } else {
+            menor = media + 1;
         }
     }
 
-    // Se o contador cont for 0, o ano não foi encontrado
-    if (cont == 0) {
+    if (!encontrado) {
         cout << "Ano nao encontrado!" << endl;
     }
 }
@@ -359,7 +351,7 @@ if (resposta2 == 1) {
                 cin >> numeroGenero;
                 string genero;
                 switch (numeroGenero) {
-                    case 1: genero = "MisteriO"; break;
+                    case 1: genero = "Misterio"; break;
                     case 2: genero = "Drama"; break;
                     case 3: genero = "Romance"; break;
                     case 4: genero = "Drama"; break;
@@ -435,9 +427,9 @@ if (resposta2 == 1) {
 				 }
 			 }else if(resposta==2){ //filtar os livros 
 				 cout << "Deseja fazer a buscar por qual tipo de filtro? " << endl;
-				 cout << "1) Nome " << endl << "2) Ano de Lancamento" << endl;
+				 cout << "1) Nome " << endl << "2) Ano de Lancamento" << endl << "3) Genero" << endl;
 				 int resposta2=0;
-				 cout << "Resposta(1 ate 2): " ;
+				 cout << "Resposta(1 ate 3): " ;
 				 cin >> resposta2;
 				 if(resposta2==1){ // filtrar por nome
 					cout << "Insira o nome do livro desejado: " << endl << "livro: ";
@@ -464,10 +456,43 @@ if (resposta2 == 1) {
 					int anoBusca;
 					cin>>anoBusca;
 					buscaBinariaAno(livro, tamanho, anoBusca);
-				}else{
-					cout<< "Valor inserido INVALIDO! Retornando ao comeco do codigo!" << endl;
-				}
-			}else if(resposta==3){ // Sobrescrever/Escrever dados
+					}else if (resposta2 == 3) { // filtrar por genero
+                cout << "Qual genero?" << endl;
+                cout << "1) Misterio" << endl;
+                cout << "2) Drama" << endl;
+                cout << "3) Romance" << endl;
+                cout << "4) Drama" << endl;
+                cout << "5) Ficcao cientifica" << endl;
+                cout << "6) Aventura" << endl;
+                cout << "7) Fantasia" << endl;
+                int numeroGenero;
+                cin >> numeroGenero;
+                string genero;
+                switch (numeroGenero) {
+                    case 1: genero = "Misterio"; break;
+                    case 2: genero = "Drama"; break;
+                    case 3: genero = "Romance"; break;
+                    case 4: genero = "Drama"; break;
+                    case 5: genero = "Ficcao cientifica"; break;
+                    case 6: genero = "Aventura"; break;
+                    case 7: genero = "Fantasia"; break;
+                    default: cout << "Genero invalido!" << endl; continue;
+                }
+
+                for (int i = 0; i < tamanho; i++) {
+                    if (livro[i].genero == genero) {
+                        cout << "livro: " << livro[i].nome << "; ";
+                        cout << "Autor: " << livro[i].nomeAutor << "; ";
+                        cout << "Paginas: " << livro[i].numPaginas << "; ";
+                        cout << "Lancamento: " << livro[i].lancamento << "; ";
+                        cout << "Genero: " << livro[i].genero << "; ";
+                        cout << "editora: " << livro[i].editora << endl;
+                    }
+                }
+            } else {
+                cout << "Valor inserido INVALIDO! Retornando ao comeco do codigo!" << endl;
+            }
+				}else if(resposta==3){ // Sobrescrever/Escrever dados
 					 cout << "1)Escrever dados" << endl << "2)Sobrescrevrer dados " << endl;
 					 int resposta3=0;
 					 cout << "Resposta (1 ou 2): ";
