@@ -1,144 +1,163 @@
-// NOMES: João Pedro Olivera de Jesus Machado; Luisa 
-
 #include <iostream>
 #include <fstream>
 #include <string>
 using namespace std;
 
-struct Livro {
-    string nomeAutor, nome, genero, editora;
+struct Livros {
+    string nome, nomeAutor, genero, editora;
     int numPaginas;
     int dataLancamento;
     bool removido;
 
-    void escreverEmArquivoBinario(ofstream& arquivo) const {
-        size_t tamanhoNome = nome.size();
-        arquivo.write(reinterpret_cast<const char*>(&tamanhoNome), sizeof(tamanhoNome));
-        if (!arquivo) {
-            cerr << "Erro ao escrever o tamanho do nome.\n";
+    // Função para ler dados do arquivo CSV
+    void entrada_arquivo(Livros*& livros, int& tamanho) {
+        ifstream entrada("livros.csv");
+        if (!entrada) {
+            cerr << "Erro ao abrir o arquivo livros.csv\n";
             return;
         }
-        arquivo.write(nome.c_str(), tamanhoNome);
-        if (!arquivo) {
-            cerr << "Erro ao escrever o nome.\n";
-            return;
+
+        string linha;
+        getline(entrada, linha); // Lê e descarta a primeira linha (cabeçalho)
+
+        int contador = 0;
+        while (getline(entrada, linha)) {
+            if (contador == tamanho) {
+                // Redimensiona o vetor se necessário
+                int tamanhoNovo = tamanho + 5;
+                Livros* novoVetor = new Livros[tamanhoNovo];
+                for (int i = 0; i < tamanho; i++) {
+                    novoVetor[i] = livros[i];
+                }
+                delete[] livros;
+                livros = novoVetor;
+                tamanho = tamanhoNovo;
+            }
+
+            size_t pos = 0;
+            size_t next_pos;
+
+            // Lê cada campo da linha
+            try {
+                // Ignora o identificador
+                next_pos = linha.find(',', pos);
+                pos = next_pos + 1;
+
+                // Nome do livro
+                next_pos = linha.find(',', pos);
+                livros[contador].nome = linha.substr(pos, next_pos - pos);
+                pos = next_pos + 1;
+
+                // Nome do autor
+                next_pos = linha.find(',', pos);
+                livros[contador].nomeAutor = linha.substr(pos, next_pos - pos);
+                pos = next_pos + 1;
+
+                // Número de páginas
+                next_pos = linha.find(',', pos);
+                string paginasStr = linha.substr(pos, next_pos - pos);
+                if (!paginasStr.empty()) {
+                    livros[contador].numPaginas = stoi(paginasStr);
+                } else {
+                    livros[contador].numPaginas = 0; // Valor padrão se o campo estiver vazio
+                }
+                pos = next_pos + 1;
+
+                // Data de lançamento
+                next_pos = linha.find(',', pos);
+                string dataStr = linha.substr(pos, next_pos - pos);
+                if (!dataStr.empty()) {
+                    livros[contador].dataLancamento = stoi(dataStr);
+                } else {
+                    livros[contador].dataLancamento = 0; // Valor padrão se o campo estiver vazio
+                }
+                pos = next_pos + 1;
+
+                // Gênero
+                next_pos = linha.find(',', pos);
+                livros[contador].genero = linha.substr(pos, next_pos - pos);
+                pos = next_pos + 1;
+
+                // Editora
+                livros[contador].editora = linha.substr(pos);
+                livros[contador].removido = false;
+
+                contador++;
+            } catch (const invalid_argument& e) {
+                cerr << "Erro ao converter campo para inteiro na linha: " << linha << "\n";
+                continue; // Ignora a linha e continua para a próxima
+            }
         }
-        
-        size_t tamanhoNomeAutor = nomeAutor.size();
-        arquivo.write(reinterpret_cast<const char*>(&tamanhoNomeAutor), sizeof(tamanhoNomeAutor));
-        if (!arquivo) {
-            cerr << "Erro ao escrever o tamanho do nome do autor.\n";
-            return;
-        }
-        arquivo.write(nomeAutor.c_str(), tamanhoNomeAutor);
-        if (!arquivo) {
-            cerr << "Erro ao escrever o nome do autor.\n";
-            return;
-        }
-        
-        size_t tamanhoEditora = editora.size();
-        arquivo.write(reinterpret_cast<const char*>(&tamanhoEditora), sizeof(tamanhoEditora));
-        if (!arquivo) {
-            cerr << "Erro ao escrever o tamanho da editora.\n";
-            return;
-        }
-        arquivo.write(editora.c_str(), tamanhoEditora);
-        if (!arquivo) {
-            cerr << "Erro ao escrever a editora.\n";
-            return;
-        }
-        
-        arquivo.write(reinterpret_cast<const char*>(&numPaginas), sizeof(numPaginas));
-        if (!arquivo) {
-            cerr << "Erro ao escrever o número de páginas.\n";
-            return;
-        }
-        
-        arquivo.write(reinterpret_cast<const char*>(&dataLancamento), sizeof(dataLancamento));
-        if (!arquivo) {
-            cerr << "Erro ao escrever a data de lançamento.\n";
-            return;
-        }
-        
-        size_t tamanhoGenero = genero.size();
-        arquivo.write(reinterpret_cast<const char*>(&tamanhoGenero), sizeof(tamanhoGenero));
-        if (!arquivo) {
-            cerr << "Erro ao escrever o tamanho do gênero.\n";
-            return;
-        }
-        arquivo.write(genero.c_str(), tamanhoGenero);
-        if (!arquivo) {
-            cerr << "Erro ao escrever o gênero.\n";
-            return;
-        }
-    }
-    void lerDoArquivoBinario(ifstream& arquivo) {
-        size_t tamanhoNome;
-        arquivo.read(reinterpret_cast<char*>(&tamanhoNome), sizeof(tamanhoNome));
-        nome.resize(tamanhoNome);
-        arquivo.read(&nome[0], tamanhoNome);
-        
-        size_t tamanhoNomeAutor;
-        arquivo.read(reinterpret_cast<char*>(&tamanhoNomeAutor), sizeof(tamanhoNomeAutor));
-        nomeAutor.resize(tamanhoNomeAutor);
-        arquivo.read(&nomeAutor[0], tamanhoNomeAutor);
-        
-        arquivo.read(reinterpret_cast<char*>(&numPaginas), sizeof(numPaginas));
-        arquivo.read(reinterpret_cast<char*>(&dataLancamento), sizeof(dataLancamento));
-        
-        size_t tamanhoGenero;
-        arquivo.read(reinterpret_cast<char*>(&tamanhoGenero), sizeof(tamanhoGenero));
-        genero.resize(tamanhoGenero);
-        arquivo.read(&genero[0], tamanhoGenero);
-        
-        size_t tamanhoEditora;
-        arquivo.read(reinterpret_cast<char*>(&tamanhoEditora), sizeof(tamanhoEditora));
-        editora.resize(tamanhoEditora);
-        arquivo.read(&editora[0], tamanhoEditora);
+
+        tamanho = contador;
+        entrada.close();
     }
 };
 
-void quickSortPorNome(Livro* livros, int inicio, int fim) {
+// Funções auxiliares
+void swap(Livros& a, Livros& b) {
+    Livros temp = a;
+    a = b;
+    b = temp;
+}
+
+void quickSortPorNome(Livros* livros, int inicio, int fim) {
     if (inicio < fim) {
-        string pivo = livros[fim].nome;
-        int i = inicio - 1;
+        int meio = inicio + (fim - inicio) / 2;
+        if (livros[inicio].nome > livros[meio].nome)
+            swap(livros[inicio], livros[meio]);
+        if (livros[inicio].nome > livros[fim].nome)
+            swap(livros[inicio], livros[fim]);
+        if (livros[meio].nome > livros[fim].nome)
+            swap(livros[meio], livros[fim]);
 
-        for (int j = inicio; j < fim; j++) {
-            if (livros[j].nome <= pivo) {
-                i++;
-                swap(livros[i], livros[j]);
-            }
+        string pivo = livros[meio].nome;
+        swap(livros[meio], livros[fim - 1]);
+        int i = inicio, j = fim - 1;
+
+        while (true) {
+            while (livros[++i].nome < pivo);
+            while (livros[--j].nome > pivo);
+            if (i >= j) break;
+            swap(livros[i], livros[j]);
         }
-        swap(livros[i + 1], livros[fim]);
+        swap(livros[i], livros[fim - 1]);
 
-        int pi = i + 1;
-        quickSortPorNome(livros, inicio, pi - 1);
-        quickSortPorNome(livros, pi + 1, fim);
+        quickSortPorNome(livros, inicio, i - 1);
+        quickSortPorNome(livros, i + 1, fim);
     }
 }
 
-void quickSortPorData(Livro* livros, int inicio, int fim) {
+void quickSortPorData(Livros* livros, int inicio, int fim) {
     if (inicio < fim) {
-        int pivo = livros[fim].dataLancamento;
-        int i = inicio - 1;
+        int meio = inicio + (fim - inicio) / 2;
+        int pivo = livros[meio].dataLancamento;
 
-        for (int j = inicio; j < fim; j++) {
-            if (livros[j].dataLancamento <= pivo) {
-                i++;
-                swap(livros[i], livros[j]);
-            }
+        if (livros[inicio].dataLancamento > livros[meio].dataLancamento)
+            swap(livros[inicio], livros[meio]);
+        if (livros[inicio].dataLancamento > livros[fim].dataLancamento)
+            swap(livros[inicio], livros[fim]);
+        if (livros[meio].dataLancamento > livros[fim].dataLancamento)
+            swap(livros[meio], livros[fim]);
+
+        pivo = livros[meio].dataLancamento;
+        swap(livros[meio], livros[fim - 1]);
+        int i = inicio, j = fim - 1;
+
+        while (true) {
+            while (livros[++i].dataLancamento < pivo);
+            while (livros[--j].dataLancamento > pivo);
+            if (i >= j) break;
+            swap(livros[i], livros[j]);
         }
-        swap(livros[i + 1], livros[fim]);
+        swap(livros[i], livros[fim - 1]);
 
-        int pi = i + 1;
-        quickSortPorData(livros, inicio, pi - 1);
-        quickSortPorData(livros, pi + 1, fim);
+        quickSortPorData(livros, inicio, i - 1);
+        quickSortPorData(livros, i + 1, fim);
     }
 }
 
-void exibirLivros(Livro* livros, int tamanho, int inicio = 0, int fim = -1) {
-    if (fim == -1) fim = tamanho;
-
+void exibirLivros(Livros* livros, int inicio, int fim) {
     for (int i = inicio; i < fim; i++) {
         if (!livros[i].removido) {
             cout << "Indice " << i << "\n";
@@ -152,51 +171,7 @@ void exibirLivros(Livro* livros, int tamanho, int inicio = 0, int fim = -1) {
     }
 }
 
-void entrada_arquivo(Livro*& livros, int& tamanho) {
-    ifstream entrada("Livros.csv");
-    if (entrada) {
-        string linha;
-        getline(entrada, linha); 
-        getline(entrada, linha); // Lê e descarta a primeira linha (cabeçalho)
-    }
-    int contador = 0;
-    char delimitador = ',';
-    string lixo;
-    while (entrada && contador < tamanho) {
-        getline(entrada, lixo, delimitador); // Ignora a numeração
-        getline(entrada, livros[contador].nome,delimitador);
-        getline(entrada, lixo, delimitador);
-        entrada >> livros[contador].numPaginas;
-        getline(entrada, lixo, delimitador);
-        entrada >> livros[contador].dataLancamento;
-        getline(entrada, lixo, delimitador);
-        getline(entrada, livros[contador].genero,delimitador);
-        getline(entrada, lixo, delimitador);
-        getline(entrada, livros[contador].editora,delimitador);
-        livros[contador].removido = false;
-        contador++;
-
-        // Se o contador chegar ao tamanho do vetor livros, será necessário redimensionar o vetor livros
-        if (contador == tamanho) {
-            int tamanhoNovo = tamanho + 5;
-            Livro* vetorAux = new Livro[tamanhoNovo];
-            // Preenchendo o vetorAux com os valores do vetor livros
-            for (int i = 0; i < tamanho; i++) {
-                vetorAux[i] = livros[i];
-            }
-            // Direcionar o vetor livros para o vetorAux redimensionado
-            delete[] livros;
-            livros = vetorAux;
-            tamanho = tamanhoNovo;
-        }
-    }
-    tamanho = contador - 1;
-    entrada.close();
-}
-
-// Função que exibe o menu de opções para o usuário
 void menu() {
-
     cout << "                          <CATALOGO DE LIVROS>                 " << endl << endl << endl;
     cout << "1. Inserir Livro\n";
     cout << "2. Remover Livro\n";
@@ -206,23 +181,31 @@ void menu() {
     cout << "0. Sair\n";
 }
 
-int buscaBinariaPorNome(Livro* livros, int inicio, int fim, string nome) {
-    if (fim >= inicio) {
+int buscaBinariaPorNome(Livros* livros, int inicio, int fim, const string& nome) {
+    while (inicio <= fim) {
         int meio = inicio + (fim - inicio) / 2;
 
-        if (livros[meio].nome == nome)
-            return meio;
-
-        if (livros[meio].nome > nome)
-            return buscaBinariaPorNome(livros, inicio, meio - 1, nome);
-
-        return buscaBinariaPorNome(livros, meio + 1, fim, nome);
+        if (livros[meio].nome == nome) {
+            // Livro encontrado: exibe os detalhes
+            cout << "Livro encontrado:\n";
+            cout << "Nome: " << livros[meio].nome << "\n";
+            cout << "Autor: " << livros[meio].nomeAutor << "\n";
+            cout << "Páginas: " << livros[meio].numPaginas << "\n";
+            cout << "Ano de Lançamento: " << livros[meio].dataLancamento << "\n";
+            cout << "Gênero: " << livros[meio].genero << "\n\n";
+            return meio; // Retorna o índice do livro encontrado
+        } else if (livros[meio].nome > nome) {
+            fim = meio - 1; // Busca na metade esquerda
+        } else {
+            inicio = meio + 1; // Busca na metade direita
+        }
     }
-    return -1;
+
+    cout << "Livro não encontrado.\n";
+    return -1; // Livro não encontrado
 }
 
-// Assumes the array is sorted by dataLancamento
-int buscaBinariaPorData(Livro* livros, int inicio, int fim, int data) {
+int buscaBinariaPorData(Livros* livros, int inicio, int fim, int data) {
     if (fim >= inicio) {
         int meio = inicio + (fim - inicio) / 2;
 
@@ -237,39 +220,45 @@ int buscaBinariaPorData(Livro* livros, int inicio, int fim, int data) {
     return -1;
 }
 
-void removerLivro(Livro* livros, int tamanho) {
+void removerLivro(Livros* livros, int tamanho) {
+    if (tamanho == 0) {
+        cout << "Não há livros para remover.\n";
+        return;
+    }
+
     int indice;
     cout << "Informe o índice do livro a ser removido: ";
     cin >> indice;
 
-    // Verifica se a entrada é válida
     if (cin.fail()) {
-        cin.clear(); // Limpa o estado de erro
-        cin.ignore(10000, '\n'); // Ignora a entrada inválida
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Entrada inválida. Por favor, insira um número inteiro.\n";
     } else if (indice >= 0 && indice < tamanho) {
-        // Marca o livro como removido
         livros[indice].removido = true;
         cout << "Livro marcado como removido.\n";
     } else {
-        // Índice fora do intervalo válido
         cout << "Índice inválido.\n";
     }
 }
 
-void inserirLivro(Livro*& livros, int& tamanho, int& capacidade) {
+void inserirLivro(Livros*& livros, int& tamanho, int& capacidade) {
     if (tamanho == capacidade) {
-        capacidade += 5; // Aumenta a capacidade em 5
-        Livro* novoVetor = new Livro[capacidade];
+        int tamanhoNovo = capacidade + 5;
+        capacidade = tamanhoNovo;
+        Livros* novoVetor = new Livros[capacidade];
         for (int i = 0; i < tamanho; i++) {
             novoVetor[i] = livros[i];
         }
         delete[] livros;
         livros = novoVetor;
+        tamanho = tamanhoNovo;
     }
-    Livro novoLivro;
-    cout << "Nome do Autor: ";
+    Livros novoLivro;
+    cout << "Nome do Livro: ";
     cin.ignore();
+    getline(cin, novoLivro.nome);
+    cout << "Nome do Autor: ";
     getline(cin, novoLivro.nomeAutor);
     cout << "Número de Páginas: ";
     while (!(cin >> novoLivro.numPaginas) || novoLivro.numPaginas <= 0) {
@@ -294,8 +283,8 @@ void inserirLivro(Livro*& livros, int& tamanho, int& capacidade) {
     tamanho++;
 }
 
-void cases(Livro*& livros, int& tamanho, int& capacidade, int& opcao){
-  do {
+void cases(Livros*& livros, int& tamanho, int& capacidade, int& opcao) {
+    do {
         menu();
         cout << "Escolha uma opcao: ";
         cin >> opcao;
@@ -304,7 +293,7 @@ void cases(Livro*& livros, int& tamanho, int& capacidade, int& opcao){
         switch (opcao) {
             case 1:
                 inserirLivro(livros, tamanho, capacidade);
-            break;
+                break;
             case 2:
                 removerLivro(livros, tamanho);
                 break;
@@ -313,11 +302,14 @@ void cases(Livro*& livros, int& tamanho, int& capacidade, int& opcao){
                 cout << "Informe o nome do livro: ";
                 cin.ignore(10000, '\n');
                 getline(cin, nome);
+
+                // Ordena os livros pelo nome antes de buscar
                 quickSortPorNome(livros, 0, tamanho - 1);
+
                 int indice = buscaBinariaPorNome(livros, 0, tamanho - 1, nome);
                 if (indice != -1) {
                     cout << "Livro encontrado:\n";
-                    exibirLivros(livros, tamanho, indice, indice + 1);
+                    exibirLivros(livros, indice, indice + 1);
                 } else {
                     cout << "Livro não encontrado.\n";
                 }
@@ -327,11 +319,14 @@ void cases(Livro*& livros, int& tamanho, int& capacidade, int& opcao){
                 int data;
                 cout << "Informe a data de lançamento do livro: ";
                 cin >> data;
+
+                // Ordena os livros pela data antes de buscar
                 quickSortPorData(livros, 0, tamanho - 1);
+
                 int indice = buscaBinariaPorData(livros, 0, tamanho - 1, data);
                 if (indice != -1) {
                     cout << "Livro encontrado:\n";
-                    exibirLivros(livros, tamanho, indice, indice + 1);
+                    exibirLivros(livros, indice, indice + 1);
                 } else {
                     cout << "Livro não encontrado.\n";
                 }
@@ -339,9 +334,9 @@ void cases(Livro*& livros, int& tamanho, int& capacidade, int& opcao){
             }
             case 5: {
                 int inicio, fim;
-                cout << "Informe o intervalo ( 1 a "<< capacidade << ")" << endl;
+                cout << "Informe o intervalo (1 a " << capacidade << "): ";
                 cin >> inicio >> fim;
-                exibirLivros(livros, tamanho, inicio, fim);
+                exibirLivros(livros, inicio - 1, fim);
                 break;
             }
             case 0:
@@ -351,16 +346,16 @@ void cases(Livro*& livros, int& tamanho, int& capacidade, int& opcao){
                 cout << "Opção inválida.\n";
         }
     } while (opcao != 0);
-
+    delete[] livros;
 }
 
 int main() {
     int capacidade = 40;
-    Livro* livros = new Livro[capacidade];
+    Livros* livros = new Livros[capacidade];
     int tamanho = 0, opcao = 0;
 
-    entrada_arquivo(livros, tamanho);
+    livros[0].entrada_arquivo(livros, tamanho);
+    quickSortPorNome(livros, 0, tamanho - 1);
     cases(livros, tamanho, capacidade, opcao);
-    delete[] livros;
     return 0;
 }
