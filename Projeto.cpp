@@ -2,8 +2,6 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <vector>
-#include <algorithm>
 using namespace std;
 
 struct Livros {
@@ -79,26 +77,29 @@ void salvarEmArquivoCSV(Livros *livros, int quantidade, string &diretorio) {
     // Escreve o cabeçalho
     arquivo << "Nome,Autor,Número de Páginas,Data de Lançamento,Gênero,Editora\n";
 
-    // Ordena os livros por nome antes de salvar
-    vector<Livros> livrosOrdenados(livros, livros + quantidade);
-    sort(livrosOrdenados.begin(), livrosOrdenados.end(), [](const Livros &a, const Livros &b) {
-        return a.nome < b.nome;
-    });
+    // Ordena os livros por nome antes de salvar (sem usar std::vector ou std::sort)
+    for (int i = 0; i < quantidade - 1; i++) {
+        for (int j = i + 1; j < quantidade; j++) {
+            if (livros[i].nome > livros[j].nome) {
+                swap(livros[i], livros[j]);
+            }
+        }
+    }
 
     // Escreve os dados dos livros
-    for (const auto &livro : livrosOrdenados) {
-        if (!livro.removido) {
-            arquivo << livro.nome << ","
-                    << livro.nomeAutor << ","
-                    << livro.numPaginas << ","
-                    << livro.dataLancamento << ","
-                    << livro.genero << ","
-                    << livro.editora << "\n";
+    for (int i = 0; i < quantidade; i++) {
+        if (!livros[i].removido) {
+            arquivo << livros[i].nome << ","
+                    << livros[i].nomeAutor << ","
+                    << livros[i].numPaginas << ","
+                    << livros[i].dataLancamento << ","
+                    << livros[i].genero << ","
+                    << livros[i].editora << "\n";
         }
     }
 
     arquivo.close();
-    cout << "Dados salvos em " << diretorio <<" com sucesso!\n";
+    cout << "Dados salvos em " << diretorio << " com sucesso!\n";
 }
 
 // Função para ler do arquivo binário
@@ -107,7 +108,7 @@ void lerArquivoBinario(Livros *&livros, int &capacidade, int &quantidade) {
     if (!arquivo) {
         cerr << "Nao existem dados binarios previos" << endl << endl;
         return;
-    }else{
+    } else {
         cout << "Dados binarios carregados com sucesso!" << endl << endl;
     }
 
@@ -380,7 +381,7 @@ void removerLivro(Livros *livros, int &tamanho) {
         cout << "Entrada inválida. Por favor, insira um número inteiro.\n";
     } else if (indice >= 0 && indice <= tamanho) {
         livros[indice - 1].removido = true;
-        tamanho --;
+        tamanho--;
         cout << "Livro marcado como removido.\n";
     } else {
         cout << "Índice inválido.\n";
