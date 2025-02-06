@@ -291,7 +291,7 @@ void menu() {
     cout << "3. Buscar Livro por Nome\n";
     cout << "4. Buscar Livro por Data de Lancamento\n";
     cout << "5. Exibir Livros\n";
-    cout << "6. Salvar em binário\n";
+    cout << "6. Salvar em binario\n";
     cout << "7. Importar de arquivo CSV\n";
     cout << "8. Salvar em arquivo CSV\n";
     cout << "0. Sair\n";
