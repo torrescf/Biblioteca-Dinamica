@@ -476,7 +476,7 @@ void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao, string &d
                 cout<<"Informe o diretorio do arquivo CSV: ";
                 cin>>diretorio;
                 livros[0].entrada_arquivo(livros, tamanho, capacidade, diretorio);
-                cout<<" Dados importados com sucesso! "<<endl<<endl5;
+                cout<<" Dados importados com sucesso! "<<endl<<endl;
                 break;
             case 8:
                 salvarEmArquivoCSV(livros, tamanho, diretorio);
