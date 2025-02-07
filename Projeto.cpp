@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 using namespace std;
 
 struct Livros {
@@ -293,18 +294,22 @@ void exibirLivros(Livros *livros, int inicio, int fim) {
 }
 
 void menu() {
-    cout << "                          <CATALOGO DE LIVROS>                 " << endl
-         << endl
-         << endl;
-    cout << "1. Inserir Livro\n";
-    cout << "2. Remover Livro\n";
-    cout << "3. Buscar Livro por Nome\n";
-    cout << "4. Buscar Livro por Data de Lancamento\n";
-    cout << "5. Exibir Livros\n";
-    cout << "6. Salvar em binario\n";
-    cout << "7. Importar de arquivo CSV\n";
-    cout << "8. Salvar em arquivo CSV\n";
-    cout << "0. Sair\n";
+  
+        cout << "\033[1;34m******************************************\033[0m\n";
+        cout << "\033[1;32m          <CATALOGO DE LIVROS>           \033[0m\n";
+        cout << "\033[1;34m******************************************\033[0m\n\n";
+        
+        cout << "\033[1;33m1. Inserir Livro\033[0m\n";
+        cout << "\033[1;33m2. Remover Livro\033[0m\n";
+        cout << "\033[1;33m3. Buscar Livro por Nome\033[0m\n";
+        cout << "\033[1;33m4. Buscar Livro por Data de Lancamento\033[0m\n";
+        cout << "\033[1;33m5. Exibir Livros\033[0m\n";
+        cout << "\033[1;33m6. Salvar em binario\033[0m\n";
+        cout << "\033[1;33m7. Importar de arquivo CSV\033[0m\n";
+        cout << "\033[1;33m8. Salvar em arquivo CSV\033[0m\n";
+        cout << "\033[1;31m0. Sair\033[0m\n";
+        cout << "\033[1;36mEscolha uma opcao: \033[0m";
+        
 }
 
 int buscaBinariaPorNome(Livros *livros, int inicio, int fim, const string &nome) {
@@ -438,7 +443,7 @@ void inserirLivro(Livros *&livros, int &tamanho, int &capacidade) {
 void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao) {
     do {
         menu();
-        cout << endl << "Escolha uma opcao: " << endl;
+        //cout << endl << "Escolha uma opcao: " << endl;
         cin >> opcao;
         cin.ignore();
 
