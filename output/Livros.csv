@@ -1,101 +1,99 @@
-Nome do Livro,Nome do Autor,Numero de paginas,Data de lancamento,Genero,Editora,
-O Senhor dos Aneis: A Sociedade do Anel,J.R.R. Tolkien,423,1954,Fantasia,HarperCollins,
-Homage to Catalonia,George Orwell,328,1949,Distopia,Companhia das Letras,
-Dom Casmurro,Machado de Assis,416,1899,Romance,Editora Globo,
-O Morro dos Ventos Uivantes,Emily Bronte,400,1847,Romance,L&PM Editores,
-A Culpa e das Estrelas,John Green,318,2012,Romance,Intrinseca,
-O Pequeno Principe,Antoine de Saint-Exupery,96,1943,Infantojuvenil,Editora Agir,
-A Guerra dos Tronos,George R. R. Martin,694,1996,Fantasia,Leya,
-O Hobbit,J.R.R. Tolkien,310,1937,Fantasia,HarperCollins,
-Harry Potter e a Pedra Filosofal,J.K. Rowling,223,1997,Fantasia,Rocco,
-Moby Dick,Herman Melville,585,1851,Aventura,Editora 34,
-O Diario de Anne Frank,Anne Frank,300,1947,Biografia,Record,
-Frankenstein,Mary Shelley,280,1818,Horror,Penguin Classics,
-Crime e Castigo,Fyodor Dostoevsky,552,1866,Romance psicologico,Companhia das Letras,
-O Grande Gatsby,F. Scott Fitzgerald,180,1925,Romance,Editora 34,
-Dracula,Bram Stoker,416,1897,Horror,L&PM Editores,
-A Revolucao dos Bichos,George Orwell,152,1945,Fabula,Companhia das Letras,
-A Montanha Magica,Thomas Mann,690,1924,Romance psicologico,L&PM Editores,
-O Primo Basilio,Jose de Alencar,290,1878,Romance,L&PM Editores,
-O Retrato de Dorian Gray,Oscar Wilde,254,1890,Romance,L&PM Editores,
-O Codigo Da Vinci,Dan Brown,560,2003,Misterio,Sextante,
-O Ladrao de Livros,Markus Zusak,550,2005,Drama,Intrinseca,
-As Aventuras de Sherlock Holmes,Arthur Conan Doyle,320,1892,Misterio,L&PM Editores,
-A Cabana,William P. Young,252,2007,Drama,Thomas Nelson Brasil,
-O Alquimista,Paulo Coelho,208,1988,Romance,Rocco,
-A Sombra do Vento,Carlos Ruiz Zafon,592,2001,Misterio,Planeta,
-O Silmarillion,J.R.R. Tolkien,367,1977,Fantasia,HarperCollins,
-O Mundo de Sofia,Jostein Gaarder,510,1991,Filosofia,Record,
-O Mestre e Margarida,Mikhail Bulgakov,442,1967,Fantasia,Editora 34,
-O Senhor dos Aneis: As Duas Torres,J.R.R. Tolkien,413,1954,Fantasia,HarperCollins,
-O Senhor dos Aneis: O Retorno do Rei,J.R.R. Tolkien,450,1955,Fantasia,HarperCollins,
-O Ultimo Desejo,Andrzej Sapkowski,430,1993,Fantasia,WMF Martins Fontes,
-Coracao das Trevas,Joseph Conrad,200,1899,Aventura,L&PM Editores,
-O Fim da Eternidade,Isaac Asimov,336,1955,Ficcao cientifica,Editora Aleph,
-Fahrenheit 451,Ray Bradbury,256,1953,Ficcao cientifica,Record,
-O Nome do Vento,Patrick Rothfuss,650,2007,Fantasia,Suma de Letras,
-O Ciclo da Heranca,Christopher Paolini,704,2002,Fantasia,Rocco,
-A Biblioteca da Meia-Noite,Matt Haig,320,2020,Ficcao contemporanea,Arqueiro,
-A Vinganca dos Anjos,Lucia Machado de Almeida,390,2010,Fantasia,Companhia das Letras,
-A Menina que Roubava Livros,Markus Zusak,550,2005,Drama,Intrinseca,
-O Andar do Bebado,Leonard Mlodinow,288,2008,Ciencia,Objetiva,
-A Vida Secreta das Arvores,Peter Wohlleben,240,2016,Natureza,Editora Rocco,
-O Jardim Secreto,Frances Hodgson Burnett,320,1911,Infantojuvenil,L&PM Editores,
-O Canto da Sereia,Nelson Motta,432,1993,Romance,Companhia das Letras,
-O Amor nos Tempos de Colera,Gabriel Garcia Marquez,448,1985,Romance,Editora Record,
-A Origem das Especies,Charles Darwin,502,1859,Ciencia,Companhia das Letras,
-O Pintor de Falencias,Eric-Emmanuel Schmitt,223,2008,Drama,Editora Seoman,
-A Guerra dos Tronos: A Tormenta de Espadas,George R. R. Martin,700,2000,Fantasia,Leya,
-O Ultimo Rei,Mark Alder,380,2014,Ficcao historica,Companhia das Letras,
-A Redoma de Vidro,Sylvia Plath,330,1963,Romance psicologico,Companhia das Letras,
-O Principe,Nicolau Maquiavel,120,1532,Filosofia politica,Editora Martins,
-O Banquete,Plato,180,380 a.C.,Filosofia,Editora Martin Claret,
-O Fisico,Noah Gordon,512,1986,Historico,Editora Record,
-Em Busca de Sentido,Viktor Frankl,216,1946,Psicologia,Editora 34,
-A Casa dos Espiritos,Isabel Allende,464,1982,Romance historico,Editorial Planeta,
+Nome,Autor,Número de Páginas,Data de Lançamento,Gênero,Editora
+A Biblioteca da Meia-Noite,Matt Haig,320,2020,Ficcao contemporanea,Arqueiro
+A Bussola de Ouro,Philip Pullman,368,1995,Fantasia,Record
+A Cabana,William P. Young,252,2007,Drama,Thomas Nelson Brasil
+A Cancao de Aquiles,Madeline Miller,380,2011,Romance historico,Rocco
+A Casa dos Espiritos,Isabel Allende,464,1982,Romance historico,Editorial Planeta
+A Cor da Magia,Terry Pratchett,287,1983,Fantasia,L&PM Editores
+A Culpa e das Estrelas,John Green,318,2012,Romance,Intrinseca
+A Guerra dos Tronos,George R. R. Martin,694,1996,Fantasia,Leya
+A Guerra dos Tronos: A Tormenta de Espadas,George R. R. Martin,700,2000,Fantasia,Leya
+A Historia de Um Soldado,Charles S. Peirce,128,1900,Filosofia,Companhia das Letras
+A Ilha do Tesouro,Robert Louis Stevenson,320,1883,Aventura,L&PM Editores
+A Insustentavel Leveza do Ser,Milan Kundera,320,1984,Romance psicologico,Companhia das Letras
+A Maquina de Contar Historias,Mauricio Gomyde,304,2011,Romance,Novo Conceito
+A Maquina de Contar Historias,Mauricio Gomyde,304,2011,Romance,Novo Conceito
+A Menina que Roubava Livros,Markus Zusak,550,2005,Drama,Intrinseca
+A Montanha Magica,Thomas Mann,690,1924,Romance psicologico,L&PM Editores
+A Mulher na Janela,A. J. Finn,448,2018,Suspense,Editora Rocco
+A Origem das Especies,Charles Darwin,502,1859,Ciencia,Companhia das Letras
+A Redoma de Vidro,Sylvia Plath,330,1963,Romance psicologico,Companhia das Letras
+A Revolucao dos Bichos,George Orwell,152,1945,Fabula,Companhia das Letras
+A Sombra do Vento,Carlos Ruiz Zafon,592,2001,Misterio,Planeta
+A Sombra do Vento,Carlos Ruiz Zafon,592,2001,Misterio,Planeta
+A Trilogia Millenium: Os Homens que Nao Amavam as Mulheres,Stieg Larsson,550,2005,Misterio,Companhia das Letras
+A Vida Secreta das Arvores,Peter Wohlleben,240,2016,Natureza,Editora Rocco
+A Vida Secreta das Arvores,Peter Wohlleben,240,2016,Natureza,Editora Rocco
+A Vida Secreta das Arvores,Peter Wohlleben,240,2016,Natureza,Editora Rocco
+A Vinganca dos Anjos,Lucia Machado de Almeida,390,2010,Fantasia,Companhia das Letras
+As Aventuras de Sherlock Holmes,Arthur Conan Doyle,320,1892,Misterio,L&PM Editores
+As Aventuras de Tom Sawyer,Mark Twain,456,1876,Romance,Atica
+As Cronicas de Narnia: A Viagem do Peregrino da Alvorada,C.S. Lewis,240,1952,Fantasia,HarperCollins
 As Cronicas de Narnia: O Leao,C.S. Lewis,208,1950,Fantasia,HarperCollins
-O Senhor das Sombras,Cassandra Clare,500,2016,Fantasia,Galera Record,
-O Lobo da Estepe,Hermann Hesse,300,1927,Romance psicologico,Companhia das Letras,
-O Segredo,Rhonda Byrne,204,2006,Autoajuda,Sextante,
-O Enigma do Quatro,Ian Caldwell,500,2004,Misterio,Record,
-O Cachador de Pipas,Khaled Hosseini,371,2003,Drama,Editora Nova Fronteira,
-A Trilogia Millenium: Os Homens que Nao Amavam as Mulheres,Stieg Larsson,550,2005,Misterio,Companhia das Letras,
-A Historia de Um Soldado,Charles S. Peirce,128,1900,Filosofia,Companhia das Letras,
-O Trono de Vidro,Sarah J. Maas,432,2012,Fantasia,Galera Record,
-O Mundo Perdido,Arthur Conan Doyle,317,1912,Aventura,L&PM Editores,
-O Inferno,Dante Alighieri,380,1320,Literatura classica,Editora 34,
-A Sombra do Vento,Carlos Ruiz Zafon,592,2001,Misterio,Planeta,
-O Grande Amor,F. Scott Fitzgerald,192,1929,Romance,L&PM Editores,
-A Insustentavel Leveza do Ser,Milan Kundera,320,1984,Romance psicologico,Companhia das Letras,
-As Cronicas de Narnia: O Principe Caspian,C.S. Lewis,240,1951,Fantasia,HarperCollins,
-Ensaio Sobre a Cegueira,Jose Saramago,352,1995,Distopia,Companhia das Letras,
-O Leitor,Bernhard Schlink,310,1995,Drama,Companhia das Letras,
-A Cor da Magia,Terry Pratchett,287,1983,Fantasia,L&PM Editores,
-O Ultimo dos Moicanos,James Fenimore Cooper,360,1826,Aventura,L&PM Editores,
-O Silencio dos Inocentes,Thomas Harris,368,1988,Thriller,Editora Record,
-A Ilha do Tesouro,Robert Louis Stevenson,320,1883,Aventura,L&PM Editores,
-O Nome da Rosa,Umberto Eco,512,1980,Misterio,Record,
-O Conde de Monte Cristo,Alexandre Dumas,1276,1844,Aventura,L&PM Editores,
-O Assassinato de Roger Ackroyd,Agatha Christie,232,1926,Misterio,L&PM Editores,
-A Mulher na Janela,A. J. Finn,448,2018,Suspense,Editora Rocco,
-O Segredo de Emma Corrigan,Sophie Kinsella,448,2003,Romance,Record,
-O Casamento,Nicholas Sparks,336,2003,Romance,Arqueiro,
-O Milagre,Mitch Albom,256,2012,Drama,Sextant,
-O Trono de Cristal,Sarah J. Maas,432,2012,Fantasia,Galera Record,
-O Homem de Giz,C.J. Tudor,320,2018,Misterio,Record,
-As Cronicas de Narnia: A Viagem do Peregrino da Alvorada,C.S. Lewis,240,1952,Fantasia,HarperCollins,
-O Apanhador no Campo de Centeio,J.D. Salinger,224,1951,Romance,Editora do Autor,
-O Curioso Caso de Benjamin Button,F. Scott Fitzgerald,192,1922,Romance,L&PM Editores,
-O Principe,Nicolau Maquiavel,120,1532,Filosofia politica,Editora Martins,
-Os Miseraveis,Victor Hugo,1200,1862,Romance,L&PM Editores,
-A Bussola de Ouro,Philip Pullman,368,1995,Fantasia,Record,
-A Cancao de Aquiles,Madeline Miller,380,2011,Romance historico,Rocco,
-O Homem que Calculava,Malba Tahan,240,1932,Matematica/Ficcao,Editora Record,
-As Aventuras de Tom Sawyer,Mark Twain,456,1876,Romance,Atica,
-O Beijo no Asfalto,Nelson Rodrigues,160,1960,Drama,L&PM Editores,
-Sapiens: Uma Breve Historia da Humanidade,Yuval Noah Harari,512,2011,Historia,L&PM Editores,
-O Fisico,Noah Gordon,512,1986,Historico,Editora Record,
-O Sol e para Todos,Harper Lee,384,1960,Romance,Record,
-O Menino do Pijama Listrado,John Boyne,232,2006,Drama,Companhia das Letras,
-A Vida Secreta das Arvores,Peter Wohlleben,240,2016,Natureza,Editora Rocco,
-A Maquina de Contar Historias,Mauricio Gomyde,304,2011,Romance,Novo Conceito,
+As Cronicas de Narnia: O Principe Caspian,C.S. Lewis,240,1951,Fantasia,HarperCollins
+Coracao das Trevas,Joseph Conrad,200,1899,Aventura,L&PM Editores
+Crime e Castigo,Fyodor Dostoevsky,552,1866,Romance psicologico,Companhia das Letras
+Dom Casmurro,Machado de Assis,416,1899,Romance,Editora Globo
+Dracula,Bram Stoker,416,1897,Horror,L&PM Editores
+Ensaio Sobre a Cegueira,Jose Saramago,352,1995,Distopia,Companhia das Letras
+Fahrenheit 451,Ray Bradbury,256,1953,Ficcao cientifica,Record
+Frankenstein,Mary Shelley,280,1818,Horror,Penguin Classics
+Harry Potter e a Pedra Filosofal,J.K. Rowling,223,1997,Fantasia,Rocco
+Homage to Catalonia,George Orwell,328,1949,Distopia,Companhia das Letras
+Moby Dick,Herman Melville,585,1851,Aventura,Editora 34
+O Alquimista,Paulo Coelho,208,1988,Romance,Rocco
+O Amor nos Tempos de Colera,Gabriel Garcia Marquez,448,1985,Romance,Editora Record
+O Andar do Bebado,Leonard Mlodinow,288,2008,Ciencia,Objetiva
+O Apanhador no Campo de Centeio,J.D. Salinger,224,1951,Romance,Editora do Autor
+O Assassinato de Roger Ackroyd,Agatha Christie,232,1926,Misterio,L&PM Editores
+O Banquete,Plato,180,380,Filosofia,Editora Martin Claret
+O Beijo no Asfalto,Nelson Rodrigues,160,1960,Drama,L&PM Editores
+O Cachador de Pipas,Khaled Hosseini,371,2003,Drama,Editora Nova Fronteira
+O Canto da Sereia,Nelson Motta,432,1993,Romance,Companhia das Letras
+O Casamento,Nicholas Sparks,336,2003,Romance,Arqueiro
+O Ciclo da Heranca,Christopher Paolini,704,2002,Fantasia,Rocco
+O Codigo Da Vinci,Dan Brown,560,2003,Misterio,Sextante
+O Conde de Monte Cristo,Alexandre Dumas,1276,1844,Aventura,L&PM Editores
+O Curioso Caso de Benjamin Button,F. Scott Fitzgerald,192,1922,Romance,L&PM Editores
+O Diario de Anne Frank,Anne Frank,300,1947,Biografia,Record
+O Enigma do Quatro,Ian Caldwell,500,2004,Misterio,Record
+O Fim da Eternidade,Isaac Asimov,336,1955,Ficcao cientifica,Editora Aleph
+O Fisico,Noah Gordon,512,1986,Historico,Editora Record
+O Fisico,Noah Gordon,512,1986,Historico,Editora Record
+O Grande Amor,F. Scott Fitzgerald,192,1929,Romance,L&PM Editores
+O Grande Gatsby,F. Scott Fitzgerald,180,1925,Romance,Editora 34
+O Hobbit,J.R.R. Tolkien,310,1937,Fantasia,HarperCollins
+O Homem de Giz,C.J. Tudor,320,2018,Misterio,Record
+O Homem que Calculava,Malba Tahan,240,1932,Matematica/Ficcao,Editora Record
+O Inferno,Dante Alighieri,380,1320,Literatura classica,Editora 34
+O Jardim Secreto,Frances Hodgson Burnett,320,1911,Infantojuvenil,L&PM Editores
+O Ladrao de Livros,Markus Zusak,550,2005,Drama,Intrinseca
+O Leitor,Bernhard Schlink,310,1995,Drama,Companhia das Letras
+O Lobo da Estepe,Hermann Hesse,300,1927,Romance psicologico,Companhia das Letras
+O Menino do Pijama Listrado,John Boyne,232,2006,Drama,Companhia das Letras
+O Mestre e Margarida,Mikhail Bulgakov,442,1967,Fantasia,Editora 34
+O Milagre,Mitch Albom,256,2012,Drama,Sextant
+O Morro dos Ventos Uivantes,Emily Bronte,400,1847,Romance,L&PM Editores
+O Mundo Perdido,Arthur Conan Doyle,317,1912,Aventura,L&PM Editores
+O Mundo de Sofia,Jostein Gaarder,510,1991,Filosofia,Record
+O Nome da Rosa,Umberto Eco,512,1980,Misterio,Record
+O Nome do Vento,Patrick Rothfuss,650,2007,Fantasia,Suma de Letras
+O Pequeno Principe,Antoine de Saint-Exupery,96,1943,Infantojuvenil,Editora Agir
+O Pintor de Falencias,Eric-Emmanuel Schmitt,223,2008,Drama,Editora Seoman
+O Primo Basilio,Jose de Alencar,290,1878,Romance,L&PM Editores
+O Principe,Nicolau Maquiavel,120,1532,Filosofia politica,Editora Martins
+O Principe,Nicolau Maquiavel,120,1532,Filosofia politica,Editora Martins
+O Retrato de Dorian Gray,Oscar Wilde,254,1890,Romance,L&PM Editores
+O Segredo,Rhonda Byrne,204,2006,Autoajuda,Sextante
+O Segredo de Emma Corrigan,Sophie Kinsella,448,2003,Romance,Record
+O Senhor das Sombras,Cassandra Clare,500,2016,Fantasia,Galera Record
+O Senhor dos Aneis: A Sociedade do Anel,J.R.R. Tolkien,423,1954,Fantasia,HarperCollins
+O Senhor dos Aneis: As Duas Torres,J.R.R. Tolkien,413,1954,Fantasia,HarperCollins
+O Senhor dos Aneis: O Retorno do Rei,J.R.R. Tolkien,450,1955,Fantasia,HarperCollins
+O Silencio dos Inocentes,Thomas Harris,368,1988,Thriller,Editora Record
+O Silmarillion,J.R.R. Tolkien,367,1977,Fantasia,HarperCollins
+O Sol e para Todos,Harper Lee,384,1960,Romance,Record
+O Trono de Cristal,Sarah J. Maas,432,2012,Fantasia,Galera Record
+O Trono de Vidro,Sarah J. Maas,432,2012,Fantasia,Galera Record
+O Ultimo Desejo,Andrzej Sapkowski,430,1993,Fantasia,WMF Martins Fontes
+O Ultimo Rei,Mark Alder,380,2014,Ficcao historica,Companhia das Letras

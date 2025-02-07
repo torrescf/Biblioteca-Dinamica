@@ -1,3 +1,4 @@
+//Nomes: João Pedro Oliveira de Jesus Machado | Matricula :202411109 ; Ana Luísa Expedito de Andrade  Godinho | Matricula: 202410857
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,65 +13,75 @@ struct Livros {
 
     // Função para ler dados do arquivo CSV
     void entrada_arquivo(Livros *&livros, int &tamanho, int &capacidade, string &diretorio) {
-        ifstream entrada(diretorio);
-        if (!entrada) {
-            cerr << "Erro ao abrir o arquivo: " << diretorio << endl;
+        ifstream entrada("Livros.csv");
+        if (!entrada.is_open()) {
+            cout << "Erro ao abrir o arquivo: " << diretorio << endl;
             return;
         }
-
+    
         string linha;
-        int contador = 0;
         getline(entrada, linha); // Lê e descarta a primeira linha (cabeçalho)
-
-        while (getline(entrada, linha)) {
-            contador++; // Incrementa o contador de novos livros
-        }
-
-        entrada.clear();
-        entrada.seekg(0); // Volta ao início do arquivo
-        getline(entrada, linha); // Descarta o cabeçalho novamente
-
-        // Redimensionar o vetor se necessário
-        if (tamanho + contador > capacidade) {
-            capacidade = tamanho + contador + 5; // Aumenta a capacidade em 5
-            Livros *novoVetor = new Livros[capacidade];
-            for (int i = 0; i < tamanho; i++) {
-                novoVetor[i] = livros[i];
-            }
-            delete[] livros;
-            livros = novoVetor;
-        }
-
+    
         // Ler os dados do arquivo
-        for (int j = 0; j < contador; j++) {
-            getline(entrada, linha);
-            stringstream dados_linha(linha);
-
-            string numPaginas, dataLancamento;
-
-            getline(dados_linha, livros[tamanho].nome, ',');
-            getline(dados_linha, livros[tamanho].nomeAutor, ',');
-            getline(dados_linha, numPaginas, ',');
-            getline(dados_linha, dataLancamento, ',');
-            getline(dados_linha, livros[tamanho].genero, ',');
-            getline(dados_linha, livros[tamanho].editora, ',');
-
-            livros[tamanho].numPaginas = stoi(numPaginas);
-            livros[tamanho].dataLancamento = stoi(dataLancamento);
-            livros[tamanho].removido = false;
-
-            tamanho++;
+        while (getline(entrada, linha)) {
+            if (linha.empty()) {
+            } else {
+                stringstream dados_linha(linha);
+                string numPaginas, dataLancamento;
+    
+                // Ler cada campo separado por vírgula
+                if (getline(dados_linha, livros[tamanho].nome, ',') &&
+                    getline(dados_linha, livros[tamanho].nomeAutor, ',') &&
+                    getline(dados_linha, numPaginas, ',') &&
+                    getline(dados_linha, dataLancamento, ',') &&
+                    getline(dados_linha, livros[tamanho].genero, ',') &&
+                    getline(dados_linha, livros[tamanho].editora, ',')) {
+    
+                    // Verificar se as conversões são válidas
+                    bool conversaoValida = true;
+                    for (char c : numPaginas) {
+                        if (!isdigit(c)) conversaoValida = false;
+                    }
+                    for (char c : dataLancamento) {
+                        if (!isdigit(c)) conversaoValida = false;
+                    }
+    
+                    if (conversaoValida) {
+                        livros[tamanho].numPaginas = stoi(numPaginas);
+                        livros[tamanho].dataLancamento = stoi(dataLancamento);
+                        livros[tamanho].removido = false;
+                        tamanho++;
+    
+                        // Redimensionar o vetor se necessário
+                        if (tamanho >= capacidade) {
+                            capacidade += 10; // Aumenta a capacidade em 10
+                            Livros *novoVetor = new Livros[capacidade];
+                            for (int i = 0; i < tamanho; i++) {
+                                novoVetor[i] = livros[i];
+                            }
+                            delete[] livros;
+                            livros = novoVetor;
+                        }
+                    } else {
+                        cout << "Erro: Dados numéricos inválidos na linha: " << linha << endl;
+                    }
+                } else {
+                    cout << "Erro ao ler linha do arquivo: " << linha << endl;
+                }
+            }
         }
-
+    
         entrada.close();
     }
 };
 
 // Função para salvar os dados em um arquivo CSV
 void salvarEmArquivoCSV(Livros *livros, int quantidade, string &diretorio) {
-    ofstream arquivo(diretorio);
+    //cout<<"Informe o diretorio para salvar o arquivo CSV: ";
+    //cin>>diretorio;
+    ofstream arquivo("Livros2.csv");
     if (!arquivo) {
-        cerr << "Erro ao abrir o arquivo para escrita." << endl;
+        cout << "Erro ao abrir o arquivo para escrita." << endl;
         return;
     }
 
@@ -106,7 +117,7 @@ void salvarEmArquivoCSV(Livros *livros, int quantidade, string &diretorio) {
 void lerArquivoBinario(Livros *&livros, int &capacidade, int &quantidade) {
     ifstream arquivo("livros.bin", ios::binary);
     if (!arquivo) {
-        cerr << "Nao existem dados binarios previos" << endl << endl;
+        cout << "Nao existem dados binarios previos" << endl << endl;
         return;
     } else {
         cout << "Dados binarios carregados com sucesso!" << endl << endl;
@@ -116,8 +127,8 @@ void lerArquivoBinario(Livros *&livros, int &capacidade, int &quantidade) {
 
     while (arquivo.peek() != EOF) {
         if (quantidade >= capacidade) {
-            // Redimensionar o vetor, adicionando mais 50 posições
-            capacidade += 50;
+            // Redimensionar o vetor, adicionando mais 10 posições
+            capacidade += 10;
             Livros *novoVetor = new Livros[capacidade];
             for (int i = 0; i < quantidade; ++i) {
                 novoVetor[i] = livros[i];
@@ -164,7 +175,7 @@ void lerArquivoBinario(Livros *&livros, int &capacidade, int &quantidade) {
 void escreverEmArquivoBinario(Livros *livros, int quantidade) {
     ofstream arquivo("livros.bin", ios::binary | ios::trunc);
     if (!arquivo) {
-        cerr << "Erro ao abrir o arquivo para escrita." << endl;
+        cout << "Erro ao abrir o arquivo para escrita." << endl;
         return;
     }
 
@@ -227,7 +238,7 @@ void quickSortPorNome(Livros *livros, int inicio, int fim) {
         while (livros[--j].nome > pivo)
             ;
         if (i >= j)
-            break;
+            return;
         swap(livros[i], livros[j]);
     }
     swap(livros[i], livros[fim - 1]);
@@ -260,7 +271,7 @@ void quickSortPorData(Livros *livros, int inicio, int fim) {
         while (livros[--j].dataLancamento > pivo)
             ;
         if (i >= j)
-            break;
+            return;
         swap(livros[i], livros[j]);
     }
     swap(livros[i], livros[fim - 1]);
@@ -367,24 +378,24 @@ void buscaBinariaPorData(Livros *livros, int tamanho, int data) {
 
 void removerLivro(Livros *livros, int &tamanho) {
     if (tamanho == 0) {
-        cout << "Não há livros para remover.\n";
+        cout << "Nao ha livros para remover.\n";
         return;
     }
 
     int indice;
-    cout << "Informe o índice do livro a ser removido: ";
+    cout << "Informe o indice do livro a ser removido: "<<"1 a "<<tamanho<<": ";
     cin >> indice;
 
     if (cin.fail()) {
         cin.clear();
         cin.ignore(10000, '\n');
-        cout << "Entrada inválida. Por favor, insira um número inteiro.\n";
+        cout << "Entrada invalida. Por favor, insira um numero inteiro.\n";
     } else if (indice >= 0 && indice <= tamanho) {
         livros[indice - 1].removido = true;
         tamanho--;
         cout << "Livro marcado como removido.\n";
     } else {
-        cout << "Índice inválido.\n";
+        cout << "indice invalido.\n";
     }
 }
 
@@ -404,13 +415,13 @@ void inserirLivro(Livros *&livros, int &tamanho, int &capacidade) {
     cout << "Nome do Autor: ";
     getline(cin, novoLivro.nomeAutor);
     cout << "Número de Paginas: ";
-    while (!(cin >> novoLivro.numPaginas) || novoLivro.numPaginas <= 0) {
-        cout << "Entrada inválida. Por favor, insira um número válido de paginas: ";
+    while (!(cin >> novoLivro.numPaginas) or novoLivro.numPaginas <= 0) {
+        cout << "Entrada invalida. Por favor, insira um numero valido de paginas: ";
         cin.clear();
         cin.ignore(10000, '\n');
     }
     cout << "Data de Lançamento: ";
-    while (!(cin >> novoLivro.dataLancamento) || novoLivro.dataLancamento <= 0) {
+    while (!(cin >> novoLivro.dataLancamento) or novoLivro.dataLancamento <= 0) {
         cout << "Entrada invalida. Por favor, insira uma data de lançamento valida: ";
         cin.clear();
         cin.ignore(10000, '\n');
@@ -429,7 +440,7 @@ void inserirLivro(Livros *&livros, int &tamanho, int &capacidade) {
 void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao, string &diretorio) {
     do {
         menu();
-        cout << "Escolha uma opcao: ";
+        cout << endl << "Escolha uma opcao: " << endl;
         cin >> opcao;
         cin.ignore();
 
@@ -470,27 +481,31 @@ void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao, string &d
                 exibirLivros(livros, inicio - 1, fim);
                 break;
             }
-            case 6:
+            case 6:{
                 escreverEmArquivoBinario(livros, tamanho);
                 break;
-            case 7:
-                cout<<"Informe o diretorio do arquivo CSV: ";
-                cin>>diretorio;
+            }
+            case 7:{
                 livros[0].entrada_arquivo(livros, tamanho, capacidade, diretorio);
-                cout<<" Dados importados com sucesso! "<<endl<<endl;
+                cout << "Dados importados com sucesso!" << endl << endl;
                 break;
-            case 8:
+            }
+            case 8:{
                 salvarEmArquivoCSV(livros, tamanho, diretorio);
                 break;
-            case 0:
+            }
+            case 0:{
                 cout << "Saindo...\n";
-                delete[] livros;
+                delete[] livros;  // Liberar memória apenas uma vez
+                livros = nullptr; // Boa prática para evitar dangling pointers
                 break;
+            }
             default:
                 cout << "Opção inválida.\n";
         }
     } while (opcao != 0);
-    delete[] livros;
+
+    // Remover a segunda liberação de memória
 }
 
 
