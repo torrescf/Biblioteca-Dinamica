@@ -1,3 +1,4 @@
+// Tema: Um catalogo de Livros
 //Nomes: João Pedro Oliveira de Jesus Machado | Matricula :202411109 ; Ana Luísa Expedito de Andrade  Godinho | Matricula: 202410857
 #include <iostream>
 #include <fstream>
@@ -12,10 +13,10 @@ struct Livros {
     bool removido;
 
     // Função para ler dados do arquivo CSV
-    void entrada_arquivo(Livros *&livros, int &tamanho, int &capacidade, string &diretorio) {
+    void entrada_arquivo(Livros *&livros, int &tamanho, int &capacidade) {
         ifstream entrada("Livros.csv");
         if (!entrada.is_open()) {
-            cout << "Erro ao abrir o arquivo: " << diretorio << endl;
+            cout << " Erro ao abrir o arquivo " << endl;
             return;
         }
     
@@ -76,9 +77,7 @@ struct Livros {
 };
 
 // Função para salvar os dados em um arquivo CSV
-void salvarEmArquivoCSV(Livros *livros, int quantidade, string &diretorio) {
-    //cout<<"Informe o diretorio para salvar o arquivo CSV: ";
-    //cin>>diretorio;
+void salvarEmArquivoCSV(Livros *livros, int quantidade) {
     ofstream arquivo("Livros2.csv");
     if (!arquivo) {
         cout << "Erro ao abrir o arquivo para escrita." << endl;
@@ -88,7 +87,6 @@ void salvarEmArquivoCSV(Livros *livros, int quantidade, string &diretorio) {
     // Escreve o cabeçalho
     arquivo << "Nome,Autor,Número de Páginas,Data de Lançamento,Gênero,Editora\n";
 
-    // Ordena os livros por nome antes de salvar (sem usar std::vector ou std::sort)
     for (int i = 0; i < quantidade - 1; i++) {
         for (int j = i + 1; j < quantidade; j++) {
             if (livros[i].nome > livros[j].nome) {
@@ -110,7 +108,7 @@ void salvarEmArquivoCSV(Livros *livros, int quantidade, string &diretorio) {
     }
 
     arquivo.close();
-    cout << "Dados salvos em " << diretorio << " com sucesso!\n";
+    cout << "Dados salvos como " << "Livros2.csv" << " com sucesso!\n";
 }
 
 // Função para ler do arquivo binário
@@ -401,7 +399,7 @@ void removerLivro(Livros *livros, int &tamanho) {
 
 void inserirLivro(Livros *&livros, int &tamanho, int &capacidade) {
     if (tamanho == capacidade) {
-        capacidade += 50; // Aumenta a capacidade em 50
+        capacidade += 10; // Aumenta a capacidade em 10
         Livros *novoVetor = new Livros[capacidade];
         for (int i = 0; i < tamanho; i++) {
             novoVetor[i] = livros[i];
@@ -437,7 +435,7 @@ void inserirLivro(Livros *&livros, int &tamanho, int &capacidade) {
     tamanho++;
 }
 
-void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao, string &diretorio) {
+void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao) {
     do {
         menu();
         cout << endl << "Escolha uma opcao: " << endl;
@@ -486,18 +484,18 @@ void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao, string &d
                 break;
             }
             case 7:{
-                livros[0].entrada_arquivo(livros, tamanho, capacidade, diretorio);
+                livros[0].entrada_arquivo(livros, tamanho, capacidade);
                 cout << "Dados importados com sucesso!" << endl << endl;
                 break;
             }
             case 8:{
-                salvarEmArquivoCSV(livros, tamanho, diretorio);
+                salvarEmArquivoCSV(livros, tamanho);
                 break;
             }
             case 0:{
                 cout << "Saindo...\n";
                 delete[] livros;  // Liberar memória apenas uma vez
-                livros = nullptr; // Boa prática para evitar dangling pointers
+                livros = nullptr; 
                 break;
             }
             default:
@@ -510,7 +508,6 @@ void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao, string &d
 
 
 int main() {
-    string diretorio = "";
     int capacidade = 40; // Capacidade inicial do vetor
     Livros *livros = new Livros[capacidade];
     int tamanho = 0, opcao = 0;
@@ -518,7 +515,7 @@ int main() {
     lerArquivoBinario(livros, capacidade, tamanho);
 
     quickSortPorNome(livros, 0, tamanho - 1);
-    cases(livros, tamanho, capacidade, opcao, diretorio);
+    cases(livros, tamanho, capacidade, opcao);
     delete[] livros;
     return 0;
 }
