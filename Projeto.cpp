@@ -282,23 +282,22 @@ void quickSortPorData(Livros *livros, int inicio, int fim) {
 void exibirLivros(Livros *livros, int inicio, int fim) {
     for (int i = inicio; i < fim; i++) {
         if (!livros[i].removido) {
-            cout << "Indice " << i + 1 << "\n";
-            cout << "Nome: " << livros[i].nome << "\n";
-            cout << "Autor: " << livros[i].nomeAutor << "\n";
-            cout << "Paginas: " << livros[i].numPaginas << "\n";
-            cout << "Data de Lancamento: " << livros[i].dataLancamento << "\n";
-            cout << "Genero: " << livros[i].genero << "\n";
-            cout << "Editora: " << livros[i].editora << "\n\n";
+            cout << "\033[1;31m Indice\033[0m " << i + 1 << "\n";
+            cout << "\033[1;33m Nome\033[0m: " << livros[i].nome << "\n";
+            cout << "\033[1;33m autor\033[0m: " << livros[i].nomeAutor << "\n";
+            cout << "\033[1;33m paginas\033[0m: " << livros[i].numPaginas << "\n";
+            cout << "\033[1;33m Data de Lancamento\033[0m: " << livros[i].dataLancamento << "\n";
+            cout << "\033[1;33m Genero\033[0m: " << livros[i].genero << "\n";
+            cout << "\033[1;33m Editora\033[0m: " << livros[i].editora << "\n\n";
         }
     }
 }
 
 void menu() {
-  
         cout << "\033[1;34m******************************************\033[0m\n";
         cout << "\033[1;32m          <CATALOGO DE LIVROS>           \033[0m\n";
         cout << "\033[1;34m******************************************\033[0m\n\n";
-        
+        cout <<  "\033[1;36mLIVROS NO CATALOGO: \033[0m" << /*aux <<*/ endl << endl;
         cout << "\033[1;33m1. Inserir Livro\033[0m\n";
         cout << "\033[1;33m2. Remover Livro\033[0m\n";
         cout << "\033[1;33m3. Buscar Livro por Nome\033[0m\n";
@@ -307,9 +306,9 @@ void menu() {
         cout << "\033[1;33m6. Salvar em binario\033[0m\n";
         cout << "\033[1;33m7. Importar de arquivo CSV\033[0m\n";
         cout << "\033[1;33m8. Salvar em arquivo CSV\033[0m\n";
+        //cout << "\033[1;33m9. Exibir todos os livros\033[0m\n";
         cout << "\033[1;31m0. Sair\033[0m\n";
-        cout << "\033[1;36mEscolha uma opcao: \033[0m";
-        
+        cout << "\033[1;36mEscolha uma opcao: \033[0m";     
 }
 
 int buscaBinariaPorNome(Livros *livros, int inicio, int fim, const string &nome) {
@@ -386,7 +385,7 @@ void removerLivro(Livros *livros, int &tamanho) {
     }
 
     int indice;
-    cout << "Informe o indice do livro a ser removido: "<<"1 a "<<tamanho<<": ";
+    cout << "\033[1;31m0. Informe o indice do livro a ser removido\033[0m\n: "<<"1 a "<<tamanho<<": ";
     cin >> indice;
 
     if (cin.fail()) {
@@ -396,9 +395,9 @@ void removerLivro(Livros *livros, int &tamanho) {
     } else if (indice >= 0 && indice <= tamanho) {
         livros[indice - 1].removido = true;
         tamanho--;
-        cout << "Livro marcado como removido.\n";
+        cout << "\033[1;31m0. Livro removido\033[0m\n.\n";
     } else {
-        cout << "indice invalido.\n";
+        cout << "\033[1;31m0. Indice invalido\033[0m\n";
     }
 }
 
@@ -443,7 +442,6 @@ void inserirLivro(Livros *&livros, int &tamanho, int &capacidade) {
 void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao) {
     do {
         menu();
-        //cout << endl << "Escolha uma opcao: " << endl;
         cin >> opcao;
         cin.ignore();
 
@@ -497,6 +495,9 @@ void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao) {
                 salvarEmArquivoCSV(livros, tamanho);
                 break;
             }
+            /*case 9:{
+                exibirLivros(livros, inicio, fim);
+            }*/
             case 0:{
                 cout << "Saindo...\n";
                 delete[] livros;  // Liberar memória apenas uma vez
@@ -504,7 +505,7 @@ void cases(Livros *&livros, int &tamanho, int &capacidade, int &opcao) {
                 break;
             }
             default:
-                cout << "Opção inválida.\n";
+                cout << "Opção invalida.\n";
         }
     } while (opcao != 0);
 
@@ -516,7 +517,6 @@ int main() {
     int capacidade = 40; // Capacidade inicial do vetor
     Livros *livros = new Livros[capacidade];
     int tamanho = 0, opcao = 0;
-
     lerArquivoBinario(livros, capacidade, tamanho);
 
     quickSortPorNome(livros, 0, tamanho - 1);
